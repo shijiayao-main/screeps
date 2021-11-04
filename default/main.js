@@ -43,7 +43,9 @@ module.exports.loop = function () {
 
 	// 取出一个creep获取当前状态
 	var creep = Game.creeps[creepName];
-	refreshLocalState(creep);
+	if (creep != null) {
+		refreshLocalState(creep);
+	}
 
 	for (var name in Memory.creeps) {
 		var role = Game.creeps[name].memory.role;
@@ -111,7 +113,7 @@ function refreshLocalState(creep) {
 			return true;
 		}
 	});
-	
+
 
 	var myStructures = creep.room.find(FIND_MY_STRUCTURES, {
 		filter: struct => {
@@ -120,7 +122,7 @@ function refreshLocalState(creep) {
 	});
 
 	Log.d("refreshLocalState: -----needBuildTargets: " + needBuildTargets + ", allStructures: " + allStructures + ", myStructures: " + myStructures);
-	
+
 	var needRepairTargetCount = getNeedRepairTargets(creep);
 	var getNeedHarvestTargetsCount = getNeedHarvestTargets(creep);
 }
